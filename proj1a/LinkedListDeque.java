@@ -17,7 +17,7 @@ public class LinkedListDeque<T> {
             if (m == 0) {
                 return item;
             } else {
-                return next.getHelper(m-1);
+                return next.getHelper(m - 1);
             }
         }
     }
@@ -33,8 +33,8 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel;
     }
 
-    //create a hard copy of LLDeque other
-    public LinkedListDeque(LinkedListDeque<T> other) {
+    //create a hard copy of LLDeque other NOTE: This function is required by CS61B sp19 version, but is optional in sp18 version
+ /*   public LinkedListDeque(LinkedListDeque<T> other) {
         sentinel = new node<T>(null, null);
         size = 0;
         node<T> p = other.sentinel;
@@ -42,13 +42,17 @@ public class LinkedListDeque<T> {
             p = p.next;
             this.addLast(p.item);
         }
-    }
+    } */
 
     //add an item at first of LLDeque
     public void addFirst(T newItem) {
         sentinel.next = new node<T>(newItem, sentinel, sentinel.next);
         sentinel.next.prev = sentinel.next;
         size += 1;
+        if (size == 1 ) {
+            sentinel.prev = sentinel.next;
+
+        }
     }
 
     //add an item at last of LLDeque
@@ -56,6 +60,9 @@ public class LinkedListDeque<T> {
         sentinel.prev.next = new node<T>(newItem, sentinel.prev, sentinel);
         sentinel.prev = sentinel.prev.next;
         size += 1;
+        if (size == 1) {
+            sentinel.next = sentinel.prev;
+        }
     }
 
     //check if LLDeque is empty

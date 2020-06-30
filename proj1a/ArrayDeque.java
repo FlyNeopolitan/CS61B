@@ -13,14 +13,14 @@ public class ArrayDeque<T> {
         nextLast = 0;
     }
 
-    //create a hard copy of ArrayDeque other
-    public ArrayDeque(ArrayDeque other) {
+    //create a hard copy of ArrayDeque other NOTE: This function is required by CS61B sp19 version, but is optional in sp18 version
+  /*  public ArrayDeque(ArrayDeque other) {
         items = (T[]) new Object[other.items.length];
         System.arraycopy(other.items, 0, items, 0, other.items.length);
         size = other.size;
         nextFirst = other.nextFirst;
         nextLast = other.nextLast;
-    }
+    } */
 
     //calculate the next element's position of kth item;
     private int minusOne(int k) {
@@ -128,7 +128,7 @@ public class ArrayDeque<T> {
         size = size - 1;
         if (size == 0) {
             nextLast = nextFirst;
-        } else if (size > 16 && size * 1.0 / items.length < 1.0 / 4) {
+        } else if (size > 10 && size * 1.0 / items.length < 1.0 / 4) {
             resizing(items.length / 2);
             nextFirst = items.length - 1;
             nextLast = size;
@@ -148,7 +148,7 @@ public class ArrayDeque<T> {
         double ratio = size * 1.0 / items.length;
         if (size == 0) {
             nextFirst = nextLast;
-        } else if (size > 16 && ratio < 0.25) {
+        } else if (size > 10 && ratio < 0.25) {
             resizing(items.length / 2);
             nextFirst = items.length - 1;
             nextLast = size;
