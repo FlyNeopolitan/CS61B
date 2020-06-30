@@ -13,6 +13,13 @@ public class LinkedListDeque<T> {
             prev = y;
             next = z;
         }
+        T getHelper(int m) {
+            if (m == 0) {
+                return item;
+            } else {
+                return next.getHelper(m-1);
+            }
+        }
     }
 
     private node<T> sentinel;
@@ -108,6 +115,10 @@ public class LinkedListDeque<T> {
             }
             return p.item;
         }
+    }
+
+    public T getRecursive(int index) {
+        return sentinel.next.getHelper(index);
     }
 
 }
