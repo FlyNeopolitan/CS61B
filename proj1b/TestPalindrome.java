@@ -19,9 +19,16 @@ public class TestPalindrome {
     @Test
     public void testIsPalindrome() {
         assertFalse(palindrome.isPalindrome("cat"));
-        assertTrue(palindrome.isPalindrome("aba"));
+        assertTrue(palindrome.isPalindrome("B"));
         assertTrue(palindrome.isPalindrome("ded"));
+        CharacterComparator cc = new OffByOne();
+        assertTrue(palindrome.isPalindrome("aqqqb",cc));
+        assertTrue(palindrome.isPalindrome("&abb%",cc));
+        assertTrue(palindrome.isPalindrome("flake",cc));
+        CharacterComparator cd = new OffByN(1);
+        assertTrue(palindrome.isPalindrome("ke*fl",cd));
     }
 
 
 }
+

@@ -25,31 +25,31 @@ public class ArrayDeque<T> implements Deque<T> {
     //calculate the next element's position of kth item;
     private int minusOne(int k) {
         if (k == 0) {
-            return items.length-1;
+            return items.length - 1;
         } else {
-            return (k-1);
+            return (k - 1);
         }
     }
 
     //calculate the element's position before kth item
     private int addOne(int k) {
-        return (k+1)%items.length;
+        return (k + 1) % items.length;
     }
 
     //resizing
     private void resizing(int capacity) {
-        if (minusOne(nextLast) > addOne(nextFirst)){
+        if (minusOne(nextLast) > addOne(nextFirst)) {
             T[] newItems = (T[]) new Object[capacity];
-            System.arraycopy(items, addOne(nextFirst), newItems, 0, minusOne(nextLast)-addOne(nextFirst)+1);
+            System.arraycopy(items, addOne(nextFirst), newItems, 0, minusOne(nextLast) - addOne(nextFirst) + 1);
             items = newItems;
         } else if (size == 1 && minusOne(nextLast) == addOne(nextFirst)) {
             T[] newItems = (T[]) new Object[capacity];
-            System.arraycopy(items,addOne(nextFirst),newItems,0,1);
-            items=newItems;
+            System.arraycopy(items, addOne(nextFirst), newItems, 0, 1);
+            items = newItems;
         } else {
             T[] newItems = (T[]) new Object[capacity];
-            System.arraycopy(items,addOne(nextFirst),newItems,0,items.length-addOne(nextFirst));
-            System.arraycopy(items,0,newItems,items.length-addOne(nextFirst),minusOne(nextLast)+1);
+            System.arraycopy(items, addOne(nextFirst), newItems, 0, items.length - addOne(nextFirst));
+            System.arraycopy(items, 0, newItems, items.length - addOne(nextFirst), minusOne(nextLast) + 1);
             items = newItems;
         }
     }
@@ -57,10 +57,10 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     //add an item at front of Deque
     public void addFirst(T item) {
-        if (size+1 == items.length) {
-            resizing(size*2);
-            items[items.length-1] = item;
-            nextFirst = items.length -2;
+        if (size + 1 == items.length) {
+            resizing(size * 2);
+            items[items.length - 1] = item;
+            nextFirst = items.length - 2;
             nextLast = size;
             size = size + 1;
         } else {
@@ -76,15 +76,15 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     //add an item at last of Deque
     public void addLast(T item) {
-        if (size+1 == items.length) {
-            resizing(size*2);
+        if (size + 1 == items.length) {
+            resizing(size * 2);
             items[size] = item;
             nextLast = size + 1;
             size = size + 1;
             nextFirst = items.length - 1;
         } else {
             items[nextLast] = item;
-            size = size +1;
+            size = size + 1;
             nextLast = addOne(nextLast);
             if (size == 1) {
                 nextFirst = minusOne(nextFirst);
@@ -104,18 +104,18 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     //print out the Deque
     public void printDeque() {
-       if (addOne(nextFirst) <= minusOne(nextLast)) {
-           for(int k=addOne(nextFirst); k<minusOne(nextLast)+1; k++){
-               System.out.print(items[k]);
-           }
-       } else {
-           for(int k = addOne(nextFirst); k < items.length; k++){
-               System.out.print(items[k]);
-           }
-           for(int j = 0; j < minusOne(nextLast) + 1; j++) {
-               System.out.print(items[j]);
-           }
-       }
+        if (addOne(nextFirst) <= minusOne(nextLast)) {
+            for (int k = addOne(nextFirst); k < minusOne(nextLast) + 1; k++) {
+                System.out.print(items[k]);
+            }
+        }  else {
+            for (int k = addOne(nextFirst); k < items.length; k++) {
+                System.out.print(items[k]);
+            }
+            for (int j = 0; j < minusOne(nextLast) + 1; j++) {
+                System.out.print(items[j]);
+            }
+        }
         System.out.println(" ");
     }
 
@@ -128,7 +128,7 @@ public class ArrayDeque<T> implements Deque<T> {
         size = size - 1;
         if (size == 0) {
             nextLast = nextFirst;
-        } else if (size*1.0/items.length < 1.0 / 4) {
+        } else if (size * 1.0 / items.length < 1.0 / 4) {
             resizing(items.length / 2);
             nextFirst = items.length - 1;
             nextLast = size;
@@ -143,10 +143,10 @@ public class ArrayDeque<T> implements Deque<T> {
         T removeItem = items[nextLast];
         items[nextLast] = null;
         size = size - 1;
-        double Ratio = size * 1.0 / items.length;
+        double ratio = size * 1.0 / items.length;
         if (size == 0) {
             nextFirst = nextLast;
-        } else if (Ratio < 0.25) {
+        } else if (ratio < 0.25) {
             resizing(items.length / 2);
             nextFirst = items.length - 1;
             nextLast = size;
@@ -157,14 +157,14 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     //get the ith item of Deque;
     public T get(int index) {
-        if(index < size) {
+        if (index < size) {
             if (addOne(nextFirst) < minusOne(nextLast)) {
                 return items[addOne(nextFirst) + index];
             } else {
                 if (index < items.length - addOne(nextFirst)) {
                     return items[addOne(nextFirst) + index];
                 } else {
-                    return items[index-items.length + addOne(nextFirst) - 1];
+                    return items[index - items.length + addOne(nextFirst) - 1];
                 }
             }
         } else {

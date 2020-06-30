@@ -9,5 +9,7 @@ public class TestOffByN {
         assertTrue(cc.equalChars('a', 'f'));
         assertTrue(cc.equalChars('f', 'a'));
         assertFalse(cc.equalChars('h', 'f'));
+        CharacterComparator cd = new OffByN(1);
+        assertTrue(cd.equalChars('e', 'f'));
     }
 }
