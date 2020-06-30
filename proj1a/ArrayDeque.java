@@ -13,7 +13,8 @@ public class ArrayDeque<T> {
         nextLast = 0;
     }
 
-    //create a hard copy of ArrayDeque other NOTE: This function is required by CS61B sp19 version, but is optional in sp18 version
+    //create a hard copy of ArrayDeque other
+    // NOTE: This function is required by CS61B sp19 version, but is optional in sp18 version
   /*  public ArrayDeque(ArrayDeque other) {
         items = (T[]) new Object[other.items.length];
         System.arraycopy(other.items, 0, items, 0, other.items.length);
@@ -119,7 +120,7 @@ public class ArrayDeque<T> {
 
     //remove the item at front of Deque
     public T removeFirst() {
-        if(size == 0) {
+        if (size == 0) {
             return null;
         }
         nextFirst = addOne(nextFirst);

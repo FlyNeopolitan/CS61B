@@ -33,7 +33,8 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel;
     }
 
-    //create a hard copy of LLDeque other NOTE: This function is required by CS61B sp19 version, but is optional in sp18 version
+    //create a hard copy of LLDeque other
+    // NOTE: This function is required by CS61B sp19 version, but is optional in sp18 version
  /*   public LinkedListDeque(LinkedListDeque<T> other) {
         sentinel = new node<T>(null, null);
         size = 0;
@@ -47,11 +48,10 @@ public class LinkedListDeque<T> {
     //add an item at first of LLDeque
     public void addFirst(T newItem) {
         sentinel.next = new node<T>(newItem, sentinel, sentinel.next);
-        sentinel.next.prev = sentinel.next;
+        sentinel.next.next.prev = sentinel.next;
         size += 1;
-        if (size == 1 ) {
+        if (size == 1) {
             sentinel.prev = sentinel.next;
-
         }
     }
 

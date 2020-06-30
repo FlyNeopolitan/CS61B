@@ -114,10 +114,16 @@ public class LinkedListDequeTest {
 		testLLD.addFirst(2);
 		int x = testLLD.getRecursive(1);*/
 		LinkedListDeque<Integer> test = new LinkedListDeque<>();
-		test.addFirst(0);
 		test.addFirst(1);
-		test.addLast(2);
-		int x = test.removeFirst();
+		test.removeLast();
+		test.addLast(3);
+		test.addFirst(4);
+		test.removeFirst();
+		test.addLast(6);
+		test.addLast(7);
+		test.removeLast();
+		int x = test.get(0);
+
 	}
 
 } 
