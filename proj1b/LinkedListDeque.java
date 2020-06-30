@@ -1,4 +1,4 @@
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
 
     private static class node<T> {
         T item;
@@ -37,6 +37,7 @@ public class LinkedListDeque<T> {
         }
     }
 
+    @Override
     //add an item at first of LLDeque
     public void addFirst(T newItem) {
         sentinel.next = new node<T>(newItem, sentinel, sentinel.next);
@@ -44,6 +45,7 @@ public class LinkedListDeque<T> {
         size += 1;
     }
 
+    @Override
     //add an item at last of LLDeque
     public void addLast(T newItem) {
         sentinel.prev.next = new node<T>(newItem, sentinel.prev, sentinel);
@@ -51,16 +53,15 @@ public class LinkedListDeque<T> {
         size += 1;
     }
 
-    //check if LLDeque is empty
-    public boolean isEmpty() {
-        return size == 0;
-    }
 
+    @Override
     // return the size of LLDeque
     public int size() {
         return size;
     }
 
+
+    @Override
     //print LLDeque;
     public void printDeque() {
         node<T> q = sentinel;
@@ -71,6 +72,8 @@ public class LinkedListDeque<T> {
         System.out.println(" ");
     }
 
+
+    @Override
     //remove the first item of LLDeque
     public T removeFirst() {
         if (size == 0) {
@@ -84,6 +87,8 @@ public class LinkedListDeque<T> {
         }
     }
 
+
+    @Override
     //remove the last item of LLDeque
     public T removeLast() {
         if (size == 0) {
@@ -97,6 +102,7 @@ public class LinkedListDeque<T> {
         }
     }
 
+    @Override
     //get the ith item of LLDeque,and if there is no such an item, return null;
     public T get(int index) {
         if (size == 0 || index > size - 1) {
