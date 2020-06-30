@@ -6,7 +6,7 @@ public class ArrayDeque<T> implements Deque<T> {
     private int nextLast;
 
     //create an ArrayDeque
-    ArrayDeque() {
+    public ArrayDeque() {
         items = (T[]) new Object[8];
         size = 0;
         nextFirst = 0;
@@ -14,13 +14,14 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     //create a hard copy of ArrayDeque other
-    ArrayDeque(ArrayDeque other) {
+    // NOTE: This function is required by CS61B sp19 version, but is optional in sp18 version
+  /*  public ArrayDeque(ArrayDeque other) {
         items = (T[]) new Object[other.items.length];
         System.arraycopy(other.items, 0, items, 0, other.items.length);
         size = other.size;
         nextFirst = other.nextFirst;
         nextLast = other.nextLast;
-    }
+    } */
 
     //calculate the next element's position of kth item;
     private int minusOne(int k) {
@@ -54,7 +55,6 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
-    @Override
     //add an item at front of Deque
     public void addFirst(T item) {
         if (size + 1 == items.length) {
@@ -73,7 +73,6 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
-    @Override
     //add an item at last of Deque
     public void addLast(T item) {
         if (size + 1 == items.length) {
@@ -92,23 +91,23 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
+    //Is Deque empty?
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
-
-    @Override
     //get the size of Deque
     public int size() {
         return size;
     }
 
-
-    @Override
     //print out the Deque
     public void printDeque() {
         if (addOne(nextFirst) <= minusOne(nextLast)) {
             for (int k = addOne(nextFirst); k < minusOne(nextLast) + 1; k++) {
                 System.out.print(items[k]);
             }
-        }  else {
+        } else {
             for (int k = addOne(nextFirst); k < items.length; k++) {
                 System.out.print(items[k]);
             }
@@ -119,16 +118,18 @@ public class ArrayDeque<T> implements Deque<T> {
         System.out.println(" ");
     }
 
-    @Override
     //remove the item at front of Deque
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         nextFirst = addOne(nextFirst);
         T removeItem = items[nextFirst];
         items[nextFirst] = null;
         size = size - 1;
         if (size == 0) {
             nextLast = nextFirst;
-        } else if (size * 1.0 / items.length < 1.0 / 4) {
+        } else if (size > 10 && size * 1.0 / items.length < 1.0 / 4) {
             resizing(items.length / 2);
             nextFirst = items.length - 1;
             nextLast = size;
@@ -136,9 +137,11 @@ public class ArrayDeque<T> implements Deque<T> {
         return removeItem;
     }
 
-    @Override
     //remove the item at last of Deque
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         nextLast = minusOne(nextLast);
         T removeItem = items[nextLast];
         items[nextLast] = null;
@@ -146,7 +149,7 @@ public class ArrayDeque<T> implements Deque<T> {
         double ratio = size * 1.0 / items.length;
         if (size == 0) {
             nextFirst = nextLast;
-        } else if (ratio < 0.25) {
+        } else if (size > 10 && ratio < 0.25) {
             resizing(items.length / 2);
             nextFirst = items.length - 1;
             nextLast = size;
@@ -154,7 +157,6 @@ public class ArrayDeque<T> implements Deque<T> {
         return removeItem;
     }
 
-    @Override
     //get the ith item of Deque;
     public T get(int index) {
         if (index < size) {
@@ -164,7 +166,7 @@ public class ArrayDeque<T> implements Deque<T> {
                 if (index < items.length - addOne(nextFirst)) {
                     return items[addOne(nextFirst) + index];
                 } else {
-                    return items[index - items.length + addOne(nextFirst) - 1];
+                    return items[index - items.length + addOne(nextFirst)];
                 }
             }
         } else {

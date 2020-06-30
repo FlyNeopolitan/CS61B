@@ -13,6 +13,13 @@ public class LinkedListDeque<T> implements Deque<T> {
             prev = y;
             next = z;
         }
+        T getHelper(int m) {
+            if (m == 0) {
+                return item;
+            } else {
+                return next.getHelper(m - 1);
+            }
+        }
     }
 
     private node<T> sentinel;
@@ -27,7 +34,8 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     //create a hard copy of LLDeque other
-    public LinkedListDeque(LinkedListDeque<T> other) {
+    // NOTE: This function is required by CS61B sp19 version, but is optional in sp18 version
+ /*   public LinkedListDeque(LinkedListDeque<T> other) {
         sentinel = new node<T>(null, null);
         size = 0;
         node<T> p = other.sentinel;
@@ -35,33 +43,38 @@ public class LinkedListDeque<T> implements Deque<T> {
             p = p.next;
             this.addLast(p.item);
         }
-    }
+    } */
 
-    @Override
     //add an item at first of LLDeque
     public void addFirst(T newItem) {
         sentinel.next = new node<T>(newItem, sentinel, sentinel.next);
-        sentinel.next.prev = sentinel.next;
+        sentinel.next.next.prev = sentinel.next;
         size += 1;
+        if (size == 1) {
+            sentinel.prev = sentinel.next;
+        }
     }
 
-    @Override
     //add an item at last of LLDeque
     public void addLast(T newItem) {
         sentinel.prev.next = new node<T>(newItem, sentinel.prev, sentinel);
         sentinel.prev = sentinel.prev.next;
         size += 1;
+        if (size == 1) {
+            sentinel.next = sentinel.prev;
+        }
     }
 
+    //check if LLDeque is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
-    @Override
     // return the size of LLDeque
     public int size() {
         return size;
     }
 
-
-    @Override
     //print LLDeque;
     public void printDeque() {
         node<T> q = sentinel;
@@ -72,8 +85,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         System.out.println(" ");
     }
 
-
-    @Override
     //remove the first item of LLDeque
     public T removeFirst() {
         if (size == 0) {
@@ -87,8 +98,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
 
-
-    @Override
     //remove the last item of LLDeque
     public T removeLast() {
         if (size == 0) {
@@ -102,7 +111,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
 
-    @Override
     //get the ith item of LLDeque,and if there is no such an item, return null;
     public T get(int index) {
         if (size == 0 || index > size - 1) {
@@ -114,6 +122,10 @@ public class LinkedListDeque<T> implements Deque<T> {
             }
             return p.item;
         }
+    }
+
+    public T getRecursive(int index) {
+        return sentinel.next.getHelper(index);
     }
 
 }
