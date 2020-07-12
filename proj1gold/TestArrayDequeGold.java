@@ -13,7 +13,7 @@ public class TestArrayDequeGold {
         int cntOfAdd = 0;
         int cntOfRemove = 0;
         String operation = "";
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 500; i++) {
             double numberBetweenZeroAndOne = StdRandom.uniform();
             if (numberBetweenZeroAndOne < 0.25) {
                  operation = operation + "\naddFirst(" + i + ")";
