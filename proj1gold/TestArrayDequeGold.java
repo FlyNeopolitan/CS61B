@@ -23,7 +23,7 @@ public class TestArrayDequeGold {
             } else if (numberBetweenZeroAndOne < 0.5) {
                 operation = operation + "\naddLast(" + i + ")";
                 studentD.addLast(i);
-                solutionD.addFirst(i);
+                solutionD.addLast(i);
                 cntOfAdd = cntOfAdd + 1;
 
             } else if (numberBetweenZeroAndOne < 0.75) {
@@ -35,7 +35,7 @@ public class TestArrayDequeGold {
                 }
             } else {
                 if (cntOfAdd > cntOfRemove) {
-                    operation = operation + "\nremoveLast(" + i + ")";
+                    operation = operation + "\nremoveFirst(" + i + ")";
                     assertEquals(operation, solutionD.removeFirst(), studentD.removeFirst());
                     cntOfRemove += 1;
 
