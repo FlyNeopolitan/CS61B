@@ -46,12 +46,17 @@ public class Clorus extends Creature {
         return new Clorus(energy);
     }
 
+
+    // if Clorus attcks, its energy = energy + target's energy
     public  void attack(Creature target) {
         energy = energy + target.energy();
     }
+
+    // if Clorus stays, its energy = energy - 0.01
     public void stay() {
         energy = energy - 0.01;
     }
+
     /*If there are no empty squares, the Clorus will STAY (even if there are Plips nearby they could attack since plip squares do not count as empty squares).
     Otherwise, if any Plips are seen, the Clorus will ATTACK one of them randomly.
             Otherwise, if the Clorus has energy greater than or equal to one, it will REPLICATE to a random empty square.
