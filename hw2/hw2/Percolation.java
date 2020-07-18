@@ -4,23 +4,26 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
 
-    int[][] grid; //if (a, b) is open, let gird[a][b] = 1;
-    WeightedQuickUnionUF UF;
-    int[][] direction = {{-1, 0}, {0, 1}, {0, -1}, {1, 0}};
-    int upperSite, lowerSite;
-    int numberOfOpenSites;
+    private int[][] grid; //if (a, b) is open, let gird[a][b] = 1;
+    private WeightedQuickUnionUF UF;
+    private int[][] dire = {{-1, 0}, {0, 1}, {0, -1}, {1, 0}};
+    private int upperSite, lowerSite;
+    private int numberOfOpenSites;
 
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
+        if (N <= 0) {
+            throw new IllegalArgumentException();
+        }
         grid = new int[N][N];
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 grid[i][j] = 0;
             }
         }
-        UF = new WeightedQuickUnionUF(N*N + 2);
-        upperSite = N*N + 1;
-        lowerSite = N*N;
+        UF = new WeightedQuickUnionUF(N * N + 2);
+        upperSite = N * N + 1;
+        lowerSite = N * N;
         numberOfOpenSites = 0;
     }
 
@@ -29,21 +32,24 @@ public class Percolation {
         if (!isInrange(row, col)) {
             throw new IndexOutOfBoundsException();
         }
+        if (isOpen(row, col)) {
+            return;
+        }
         grid[row][col] = 1;
-        for(int i = 0; i < 4; i++) {
-            if (isInrange(row + direction[i][0], col + direction[i][1])) {
-                if (isOpen(row + direction[i][0], col + direction[i][1])) {
-                    UF.union(XYto1D(row, col), XYto1D(row + direction[i][0], col + direction[i][1]));
+        numberOfOpenSites++;
+        for (int i = 0; i < 4; i++) {
+            if (isInrange(row + dire[i][0], col + dire[i][1])) {
+                if (isOpen(row + dire[i][0], col + dire[i][1])) {
+                    UF.union(xyto1D(row, col), xyto1D(row + dire[i][0], col + dire[i][1]));
                 }
             }
-            if (row + direction[i][0] == -1) {
-                UF.union(XYto1D(row, col), upperSite);
+            if (row + dire[i][0] == -1) {
+                UF.union(xyto1D(row, col), upperSite);
             }
-            if (row + direction[i][0] == grid.length) {
-                UF.union(XYto1D(row, col), lowerSite);
+            if (row + dire[i][0] == grid.length) {
+                UF.union(xyto1D(row, col), lowerSite);
             }
         }
-        numberOfOpenSites ++;
     }
 
     // is the site (row, col) open?
@@ -59,7 +65,7 @@ public class Percolation {
         if (!isInrange(row, col)) {
             throw new IndexOutOfBoundsException();
         }
-        return UF.connected(XYto1D(row, col), upperSite);
+        return UF.connected(xyto1D(row, col), upperSite);
     }
 
     // number of open sites
@@ -85,7 +91,7 @@ public class Percolation {
         return false;
     }
 
-    public int XYto1D(int raw, int col) {
+    private int xyto1D(int raw, int col) {
         return col + raw * grid.length;
     }
 
