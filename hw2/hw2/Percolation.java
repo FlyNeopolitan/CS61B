@@ -6,7 +6,7 @@ public class Percolation {
 
     private int[][] grid; //if (a, b) is open, let gird[a][b] = 1;
     private WeightedQuickUnionUF UF;
-    private WeightedQuickUnionUF UFBackWash;
+    private WeightedQuickUnionUF uFBackWash;
     private int[][] dire = {{-1, 0}, {0, 1}, {0, -1}, {1, 0}};
     private int upperSite, lowerSite;
     private int numberOfOpenSites;
@@ -23,7 +23,7 @@ public class Percolation {
             }
         }
         UF = new WeightedQuickUnionUF(N * N + 2);
-        UFBackWash = new WeightedQuickUnionUF(N * N + 1);
+        uFBackWash = new WeightedQuickUnionUF(N * N + 1);
         upperSite = N * N + 1;
         lowerSite = N * N;
         numberOfOpenSites = 0;
@@ -43,12 +43,12 @@ public class Percolation {
             if (isInrange(row + dire[i][0], col + dire[i][1])) {
                 if (isOpen(row + dire[i][0], col + dire[i][1])) {
                     UF.union(xyto1D(row, col), xyto1D(row + dire[i][0], col + dire[i][1]));
-                    UFBackWash.union(xyto1D(row, col), xyto1D(row + dire[i][0], col + dire[i][1]));
+                    uFBackWash.union(xyto1D(row, col), xyto1D(row + dire[i][0], col + dire[i][1]));
                 }
             }
             if (row + dire[i][0] == -1) {
                 UF.union(xyto1D(row, col), upperSite);
-                UFBackWash.union(xyto1D(row, col), upperSite - 1);
+                uFBackWash.union(xyto1D(row, col), upperSite - 1);
             }
             if (row + dire[i][0] == grid.length) {
                 UF.union(xyto1D(row, col), lowerSite);
@@ -73,7 +73,7 @@ public class Percolation {
             return UF.connected(xyto1D(row, col), upperSite);
         } else {
             if (UF.connected(xyto1D(row, col), upperSite)) {
-                if (UFBackWash.connected(xyto1D(row, col), upperSite - 1)) {
+                if (uFBackWash.connected(xyto1D(row, col), upperSite - 1)) {
                     return true;
                 }
             }
