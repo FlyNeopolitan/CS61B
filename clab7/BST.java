@@ -78,7 +78,6 @@ public class BST<Key extends Comparable<Key>> {
         private Key key;           // sorted by key
         private Node left, right;  // left and right subtrees
         private int size;          // number of nodes in subtree
-        private int depth;
 
         public Node(Key key, int size) {
             this.key = key;
@@ -250,12 +249,10 @@ public class BST<Key extends Comparable<Key>> {
     }
 
     public int IPL() {
-        root.depth = 0;
-
-        return depthCal(root);
+        return depthCal(root, 0);
     }
-
-    private int depthCal(Node T) {
+    // a very silly method
+    /*private int depthCal(Node T) {
         if (T.right != null && T.left!= null) {
             T.right.depth = T.depth + 1;
             T.left.depth = T.depth + 1;
@@ -270,6 +267,12 @@ public class BST<Key extends Comparable<Key>> {
             return T.depth + depthCal(T.right);
         }
         return T.depth;
+    } */
+    private int depthCal(Node T, int depth) {
+        if (T == null) {
+            return 0;
+        }
+        return depth + depthCal(T.right, depth + 1) + depthCal(T.left, depth + 1);
     }
     public double AverageDepth() {
         return IPL() * 1.0 / size();
