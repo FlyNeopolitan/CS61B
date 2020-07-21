@@ -1,4 +1,5 @@
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 /*  @author Josh Hug, with most code created by:
  *  @author Robert Sedgewick
@@ -77,6 +78,7 @@ public class BST<Key extends Comparable<Key>> {
         private Key key;           // sorted by key
         private Node left, right;  // left and right subtrees
         private int size;          // number of nodes in subtree
+        private int depth;
 
         public Node(Key key, int size) {
             this.key = key;
@@ -246,4 +248,33 @@ public class BST<Key extends Comparable<Key>> {
     private boolean isEmpty() {
         return size() == 0;
     }
+
+    public int IPL() {
+        root.depth = 0;
+
+        return depthCal(root);
+    }
+
+    private int depthCal(Node T) {
+        if (T.right != null && T.left!= null) {
+            T.right.depth = T.depth + 1;
+            T.left.depth = T.depth + 1;
+            return T.depth + depthCal(T.left) + depthCal(T.right);
+        }
+        if (T.right == null && T.left !=null) {
+            T.left.depth = T.depth + 1;
+            return T.depth + depthCal(T.left);
+        }
+        if (T.right != null) {
+            T.right.depth = T.depth + 1;
+            return T.depth + depthCal(T.right);
+        }
+        return T.depth;
+    }
+    public double AverageDepth() {
+        return IPL() * 1.0 / size();
+    }
+
+
+
 }
