@@ -43,7 +43,7 @@ public class TestComplexOomage {
         int N = 2000;
         List<Integer> deadL = new ArrayList<>();
         for (int i = 0; i < N; i+= 1) {
-            deadL.add(i);
+            deadL.add(i % 256, 0);
             Oomage addOne = new ComplexOomage(deadL);
             deadlyList.add(addOne);
         }
