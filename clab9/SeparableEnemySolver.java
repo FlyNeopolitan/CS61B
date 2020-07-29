@@ -23,8 +23,38 @@ public class SeparableEnemySolver {
      * Returns true if input is separable, false otherwise.
      */
     public boolean isSeparable() {
-        // TODO: Fix me
-        return false;
+        Map<String, Integer> partitionMap = new HashMap<>();
+        Queue<String> BFSQueue = new ArrayDeque<>();
+        for (String i : g.labels()) {
+            partitionMap.put(i, 0);
+        }
+        for (String i : g.labels()) {
+            if (partitionMap.get(i) == 0) {
+                BFSQueue.add(i);
+                partitionMap.put(i, 1);
+                while (!BFSQueue.isEmpty()) {
+                    String currentNode = BFSQueue.poll();
+                    for (String m : g.neighbors(currentNode)) {
+                        if (partitionMap.get(m) == 0) {
+                            BFSQueue.add(m);
+                            partitionMap.put(m, otherThanX(partitionMap.get(currentNode)));
+                        }
+                        if (partitionMap.get(m).equals(partitionMap.get(currentNode))) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private int otherThanX(int x) {
+        if (x == 1) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
 
 
@@ -85,5 +115,50 @@ public class SeparableEnemySolver {
     }
 
     /* END HELPERS  FOR READING IN CSV FILES. */
+
+    /**
+     * Returns true if input is separable, false otherwise.
+     */
+    public boolean isSeparableExtra() {
+        Map<String, Integer> partitionMap = new HashMap<>();
+        Queue<String> BFSQueue = new ArrayDeque<>();
+        for (String i : g.labels()) {
+            partitionMap.put(i, 0);
+        }
+        for (String i : g.labels()) {
+            if (partitionMap.get(i) == 0) {
+                BFSQueue.add(i);
+                partitionMap.put(i, 1);
+                while (!BFSQueue.isEmpty()) {
+                    String currentNode = BFSQueue.poll();
+                    for (String m : g.neighbors(currentNode)) {
+                        if (partitionMap.get(m) == 0) {
+                            BFSQueue.add(m);
+                            partitionMap.put(m, otherThanXExtra(partitionMap.get(currentNode)));
+                        }
+                        if (partitionMap.get(m).equals(partitionMap.get(currentNode))) {
+                            if (partitionMap.get(m) == 3) {
+                                return false;
+                            } else {
+                                BFSQueue.add(m);
+                                partitionMap.put(m, 3);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private int otherThanXExtra(int x) {
+        if (x == 1) {
+            return 2;
+        }
+        if (x == 2) {
+            return 1;
+        }
+        return 3;
+    }
 
 }
