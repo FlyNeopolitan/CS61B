@@ -1,5 +1,4 @@
 package bearmaps;
-
 import java.util.*;
 
 public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
@@ -15,7 +14,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     }
 
     public ArrayHeapMinPQ(int length) {
-        items = (Node[]) new ArrayHeapMinPQ<?>.Node[length];
+        items = (Node[]) new ArrayHeapMinPQ.Node[length];
         size = 0;
         matchingMap = new HashMap<>();
     }
@@ -23,7 +22,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     /* Adds an item with the given priority value. Throws an
      * IllegalArgumentExceptionb if item is already present.
      * You may assume that item is never null. */
-
+    @Override
     public void add(T item, double priority) {
         if (contains(item)) {
             throw new IllegalArgumentException();
@@ -32,23 +31,26 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         items[size] = new Node(item, priority);
         checkUP(size);
         size++;
-        if (size + 1 == items.length) {
+        if (size  == items.length) {
             resize(resizeFACTOR);
         }
     }
 
     private void resize(double x) {
         int newLength = (int) Math.floor(x * items.length);
-        Node[] newItems = (Node[]) new ArrayHeapMinPQ<?>.Node[newLength];
+        Node[] newItems = (Node[]) new ArrayHeapMinPQ.Node[newLength];
         System.arraycopy(items, 0, newItems, 0, size);
         items = newItems;
     }
+
     /* Returns true if the PQ contains the given item. */
+    @Override
     public boolean contains(T item) {
         return matchingMap.containsKey(item);
     }
 
     /* Returns the minimum item. Throws NoSuchElementException if the PQ is empty. */
+    @Override
     public T getSmallest() {
         if (size == 0) {
             throw new NoSuchElementException();
@@ -57,6 +59,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     }
 
     /* Removes and returns the minimum item. Throws NoSuchElementException if the PQ is empty. */
+    @Override
     public T removeSmallest() {
         if (size == 0) {
             throw new NoSuchElementException();
@@ -68,18 +71,22 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         items[size - 1] = null;
         size--;
         checkDown(0);
-        if (size * 1.0 / items.length < 1.0 / 4) {
+        if (size * 1.0 / items.length < 1.0 / 4 && items.length > 15) {
             resize(resizeLowerFACTOR);
         }
         return returnOne;
     }
 
     /* Returns the number of items in the PQ. */
+    @Override
     public int size() {
         return size;
     }
+
     /* Changes the priority of the given item. Throws NoSuchElementException if the item
      * doesn't exist. */
+
+    @Override
     public void changePriority(T item, double priority) {
         if(!contains(item)) {
             throw new NoSuchElementException();
@@ -95,7 +102,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     }
 
 
-
+    //check if items[pos] is in right position, according to its parent, and if not, fix it
     private void checkUP(int pos) {
         if (isUPOk(pos)) {
             return;
@@ -107,17 +114,20 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         }
     }
 
+    //check if items[pos] is in right position, according to its child, and if not, fix it
     private void checkDown(int pos) {
         if (isDownOk(pos)) {
             return;
         } else {
-            matchingMap.put(items[pos].item, smallerChild(pos));
-            matchingMap.put(items[smallerChild(pos)].item, pos);
-            Switch(items[pos], items[smallerChild(pos)]);
-            checkDown(smallerChild(pos));
+            int smallerPos = smallerChild(pos);
+            matchingMap.put(items[pos].item, smallerPos);
+            matchingMap.put(items[smallerPos].item, pos);
+            Switch(items[pos], items[smallerPos]);
+            checkDown(smallerPos);
         }
     }
 
+    //check if items[pos] is in right position, according to its parent,
     private boolean isUPOk(int position) {
         if (position == 0) {
             return true;
@@ -125,6 +135,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         return items[position].compareTo(items[parent(position)]) > 0;
     }
 
+    //check if items[pos] is in right position, according to its child
     private boolean isDownOk(int position) {
         if (leftSon(position) >= size) {
             return true;
@@ -132,6 +143,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         return items[position].compareTo(items[smallerChild(position)]) < 0;
     }
 
+    //get the index of smallerChild of items[position]
     private int smallerChild(int position) {
         if (leftSon(position) == size - 1) {
             return leftSon(position);
@@ -143,6 +155,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         }
     }
 
+    //switch Node x and Node y
     private void Switch(Node x, Node y) {
         Node m = new Node(x.item, x.priority);
         x.item = y.item;
@@ -151,6 +164,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         y.priority = m.priority;
     }
 
+    //nested class : Node
     private class Node implements Comparable<Node>{
         double priority;
         T item;
