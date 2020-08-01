@@ -1,6 +1,6 @@
 # CS61B for 19Spring version
 Hi everyone, it is my solution for Berkeley's CS61B for 19spring version.Well, it still in progress, but I have confidence that I will
-finish the work in summer holiday(before 24th August). Now I only updated projects and labs, but later I will update discussions and hws.
+finish the work in summer holiday(before 24th August). Now I only updated projects/hws and labs, but later I will update discussions and guides.
 
 ## Week1
 Introduction and some warm-up staffs<br>
