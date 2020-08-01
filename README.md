@@ -18,10 +18,37 @@ LinkedList(SSL,DLL), TDD, generic, ArrayDeque and LinkedListDeque.<br>
 [Proj1A](https://github.com/FlyNeopolitan/CS61B/tree/master/proj1a)
 
 ## Week4
-Cast, Higher order function, inheritance(interface inheritance, implement inheritance).<br>
-[Proj1B](https://github.com/FlyNeopolitan/CS61B/tree/master/proj1b)<br>
-[Proj1Gold](https://github.com/FlyNeopolitan/CS61B/tree/master/proj1gold)<br>
-In Progress
+inheritance, exception, Object method, cast, HOFs.<br>
+[Proj1B](https://github.com/FlyNeopolitan/CS61B/tree/master/proj1b)
+[Proj1Gold](https://github.com/FlyNeopolitan/CS61B/tree/master/proj1gold)
 
 ## Week5
-In Progress
+Asymptotics, Exception, Iteration&Iterator.<br>
+[lab5](https://github.com/FlyNeopolitan/CS61B/tree/master/lab5/huglife)<br>
+[hw1](https://github.com/FlyNeopolitan/CS61B/tree/master/hw1)<br>
+
+## Week6
+Disjoint Set, QuickUnion, ADTs, map, set<br>
+[lab6](https://github.com/FlyNeopolitan/CS61B/tree/master/lab6)<br>
+[clab6](https://github.com/FlyNeopolitan/CS61B/tree/master/clab/clab6)<br>
+[hw2](https://github.com/FlyNeopolitan/CS61B/tree/master/hw2/hw2)<br>
+
+## Week7
+B-Trees(B-2,4 Tree), Red Black Tree, hashing<br>
+[lab7](https://github.com/FlyNeopolitan/CS61B/tree/master/lab7)<br>
+[clab7](https://github.com/FlyNeopolitan/CS61B/tree/master/clab7)<br>
+[hw3](https://github.com/FlyNeopolitan/CS61B/tree/master/hw3/hw3/hash)<br>
+
+## Week8
+PQ, heaps, Trie, muti-dimenstional tree<br>
+[lab8](https://github.com/FlyNeopolitan/CS61B/tree/master/lab8)<br>
+[clab8](https://github.com/FlyNeopolitan/CS61B/tree/master/clab8)<br>
+
+## Week9
+Tree/Graph traversals, Graph implementation, BFS, DFS, shortes parth(Dijkstra A* algorithm)<br>
+[lab9](https://github.com/FlyNeopolitan/CS61B/tree/master/lab9)<br>
+[clab9](https://github.com/FlyNeopolitan/CS61B/tree/master/clab9)<br>
+[proj2AB](https://github.com/FlyNeopolitan/CS61B/tree/master/proj2ab/bearmaps)<br>
+
+
+
