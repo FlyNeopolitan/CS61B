@@ -35,7 +35,7 @@ Disjoint Set, QuickUnion, ADTs, Map, Set<br>
 
 ## Week7
 B-Trees(B-2,4 Tree), Red Black Tree, Hashing<br>
-[lab7](https://github.com/FlyNeopolitan/CS61B/tree/master/lab7)BSTMap<br>
+[lab7](https://github.com/FlyNeopolitan/CS61B/tree/master/lab7) BSTMap<br>
 [clab7](https://github.com/FlyNeopolitan/CS61B/tree/master/clab7) Research on BST<br>
 [hw3](https://github.com/FlyNeopolitan/CS61B/tree/master/hw3/hw3/hash) Hash Function<br>
 
