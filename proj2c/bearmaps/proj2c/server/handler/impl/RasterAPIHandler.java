@@ -17,8 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static bearmaps.proj2c.utils.Constants.SEMANTIC_STREET_GRAPH;
-import static bearmaps.proj2c.utils.Constants.ROUTE_LIST;
+import static bearmaps.proj2c.utils.Constants.*;
 
 /**
  * Handles requests from the web browser for map images. These images
@@ -84,12 +83,83 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
      */
     @Override
     public Map<String, Object> processRequest(Map<String, Double> requestParams, Response response) {
-        //System.out.println("yo, wanna know the parameters given by the web browser? They are:");
-        //System.out.println(requestParams);
+        double LonDPPd0 = (ROOT_LRLON - ROOT_ULLON) / TILE_SIZE;
+        double stdWidth = ROOT_LRLON - ROOT_ULLON;
+        double stdHeight = ROOT_ULLAT - ROOT_LRLAT;
+        System.out.println("yo, wanna know the parameters given by the web browser? They are:");
+        System.out.println(requestParams);
+        /*System.out.println("Since you haven't implemented RasterAPIHandler.processRequest, nothing is displayed in "
+                + "your browser.");*/
         Map<String, Object> results = new HashMap<>();
-        System.out.println("Since you haven't implemented RasterAPIHandler.processRequest, nothing is displayed in "
-                + "your browser.");
+        double lrlon = requestParams.get("lrlon");
+        double ullon = requestParams.get("ullon");
+        double w = requestParams.get("w");
+        double h = requestParams.get("h");
+        double ullat = requestParams.get("ullat");
+        double lrlat = requestParams.get("lrlat");
+        double LonDPP = (lrlon - ullon) / w;
+        // check if the query can be successfully complete
+        results.put("query_success", true);
+        if (lrlon < ROOT_ULLON || ullon > ROOT_LRLON || ullat < ROOT_LRLAT || lrlat > ROOT_ULLAT) {
+            results.put("query_success", false);
+        }
+        if (lrlon < ullon || lrlat > ullat) {
+            results.put("query_success", false);
+        }
+
+
+        //calculate depth
+        int depth = 0;
+        while (depth < 7) {
+            if (LonDPPd0 / Math.pow(2, depth) < LonDPP) {
+                break;
+            }
+            depth++;
+        }
+        results.put("depth", depth);
+        double unitH = stdHeight / Math.pow(2, depth);
+        double unitW = stdWidth / Math.pow(2, depth);
+
+        //calculate raster_ul_lon
+        int xMin = findLocation(ROOT_ULLON, unitW, ullon);
+        int xMax = (findLocation(ROOT_ULLON, unitW, lrlon) + 1);
+        int yMin = findLocation(ROOT_LRLAT, unitH, lrlat);
+        int yMax = (findLocation(ROOT_LRLAT, unitH, ullat) + 1);
+
+        double raster_ul_lon = ROOT_ULLON + xMin * unitW;
+        double raster_lr_lon = ROOT_ULLON + xMax * unitW;
+        double raster_ul_lat = ROOT_LRLAT + yMax * unitH;
+        double raster_lr_lat = ROOT_LRLAT + yMin * unitH;
+        results.put("raster_ul_lon",  raster_ul_lon);
+        results.put("raster_ul_lat",  raster_ul_lat);
+        results.put("raster_lr_lon",  raster_lr_lon);
+        results.put("raster_lr_lat",  raster_lr_lat);
+
+        //calculate render_grid
+        String[][] render_grid = new String[yMax - yMin][xMax - xMin];
+        for (int i = 0; i < render_grid.length; i++) {
+            for (int j = 0; j < render_grid[i].length; j++) {
+                int xLoc = xMin + j;
+                int yLoc = (int)Math.pow(2, depth) - yMax + i;
+                render_grid[i][j] = "d" + depth + "_x" + xLoc + "_y" + yLoc + ".png";
+            }
+        }
+        results.put("render_grid", render_grid);
+
         return results;
+    }
+
+    // given startPoint, TargetPoint and UnitLength, return Integer x which satisfied that
+    // startPoint + x * UnitLength < TargetPoint < startPoint + (x + 1) UnitLength
+    private int findLocation(double startPoint, double UnitLength, double TargetPoint) {
+        if (TargetPoint < startPoint) {
+            return 0;
+        }
+        int result = 0;
+        while (startPoint + result * UnitLength <= TargetPoint) {
+            result++;
+        }
+        return (result - 1);
     }
 
     @Override
@@ -205,8 +275,9 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         BufferedImage tileImg = null;
         if (tileImg == null) {
             try {
-                File in = new File(imgPath);
-                tileImg = ImageIO.read(in);
+                //File in = new File(imgPath);
+                //tileImg = ImageIO.read(in);
+                tileImg = ImageIO.read(Thread.currentThread().getContextClassLoader().getResource(imgPath));
             } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
