@@ -49,6 +49,8 @@ Tree/Graph Traversals, Graph Implementation, BFS, DFS, Shortest Path(Dijkstra A*
 [lab9](https://github.com/FlyNeopolitan/CS61B/tree/master/lab9) Trie<br>
 [clab9](https://github.com/FlyNeopolitan/CS61B/tree/master/clab9) K-partite Graph<br>
 [proj2AB](https://github.com/FlyNeopolitan/CS61B/tree/master/proj2ab/bearmaps) Bearmap: HeapPQ, KDTree<br>
+[proj2C](https://github.com/FlyNeopolitan/CS61B/tree/master/proj2c) BearMaps<br>
+[BearMap Online](http://bearmaps-sp19-s9998.herokuapp.com/map.html) <br>
 
 
 
