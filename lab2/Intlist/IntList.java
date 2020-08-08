@@ -100,8 +100,6 @@ public class IntList {
             b=b.rest;
         }
         return A;
-
-
     }
 
     /**
