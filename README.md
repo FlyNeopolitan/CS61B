@@ -52,13 +52,13 @@ Tree/Graph Traversals, Graph Implementation, BFS, DFS, Shortest Path(Dijkstra A*
 
 ## Week10
 Min-spanning Tree, DAG-shortest Path, Topological Order, Reductions and Decompositions<br>
-[hw4](https://github.com/FlyNeopolitan/CS61B/tree/master/hw4/bearmaps) <br>
+[hw4](https://github.com/FlyNeopolitan/CS61B/tree/master/hw4/bearmaps) Dijkstra-A* Algorithm<br>
 [proj2C](https://github.com/FlyNeopolitan/CS61B/tree/master/proj2c) BearMaps<br>
 [BearMap Online](http://bearmaps-sp19-s9998.herokuapp.com/map.html) <br>
 
 ## Week11
 Basic Sort(selection sort, heap sort, merge sort, insertion sort), Quick Sort<br>
-[lab11](https://github.com/FlyNeopolitan/CS61B/tree/master/lab11)<br>
+[lab11](https://github.com/FlyNeopolitan/CS61B/tree/master/lab11) Merge Sort&Quick Sort<br>
 
 
 
