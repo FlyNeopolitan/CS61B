@@ -59,6 +59,7 @@ Min-spanning Tree, DAG-shortest Path, Topological Order, Reductions and Decompos
 ## Week11
 Basic Sort(selection sort, heap sort, merge sort, insertion sort), Quick Sort, Software Engineering<br>
 [lab11](https://github.com/FlyNeopolitan/CS61B/tree/master/lab11) Merge Sort & Quick Sort<br>
+[clab11](https://github.com/FlyNeopolitan/CS61B/tree/master/clab11) Challenge Bear and Beds <br>
 
 
 
