@@ -83,6 +83,7 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
      */
     @Override
     public Map<String, Object> processRequest(Map<String, Double> requestParams, Response response) {
+        //calculate fixed number;
         double LonDPPd0 = (ROOT_LRLON - ROOT_ULLON) / TILE_SIZE;
         double stdWidth = ROOT_LRLON - ROOT_ULLON;
         double stdHeight = ROOT_ULLAT - ROOT_LRLAT;
@@ -90,6 +91,8 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         System.out.println(requestParams);
         /*System.out.println("Since you haven't implemented RasterAPIHandler.processRequest, nothing is displayed in "
                 + "your browser.");*/
+
+        //read in variables;
         Map<String, Object> results = new HashMap<>();
         double lrlon = requestParams.get("lrlon");
         double ullon = requestParams.get("ullon");
@@ -155,11 +158,14 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         if (TargetPoint < startPoint) {
             return 0;
         }
+        /*
         int result = 0;
         while (startPoint + result * UnitLength <= TargetPoint) {
             result++;
         }
-        return (result - 1);
+        return (result - 1); */
+        Double dis = (TargetPoint - startPoint) / UnitLength;
+        return dis.intValue();
     }
 
     @Override
@@ -275,9 +281,9 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         BufferedImage tileImg = null;
         if (tileImg == null) {
             try {
-                //File in = new File(imgPath);
-                //tileImg = ImageIO.read(in);
-                tileImg = ImageIO.read(Thread.currentThread().getContextClassLoader().getResource(imgPath));
+                File in = new File(imgPath);
+                tileImg = ImageIO.read(in);
+                //tileImg = ImageIO.read(Thread.currentThread().getContextClassLoader().getResource(imgPath));
             } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
