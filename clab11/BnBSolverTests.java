@@ -52,6 +52,63 @@ public class BnBSolverTests {
     }
 
     @Test
+    public void findTest() {
+        int[] bearSizes = {5, 4, 3, 9};
+        int[] bedSizes = {9, 4, 5, 3};
+        ArrayList<Bear> bears = new ArrayList<>();
+        ArrayList<Bed> beds = new ArrayList<>();
+        for (int i = 0; i < bearSizes.length; i++) {
+            bears.add(new Bear(bearSizes[i]));
+            beds.add(new Bed(bedSizes[i]));
+        }
+        BnBSolver solver = new BnBSolver(bears, beds);
+        assertTrue(perfectMatch(solver.solvedBears(), solver.solvedBeds()));
+    }
+
+    @Test
+    public void findTest1() {
+        int[] bearSizes = {3, 4};
+        int[] bedSizes = {3, 4};
+        ArrayList<Bear> bears = new ArrayList<>();
+        ArrayList<Bed> beds = new ArrayList<>();
+        for (int i = 0; i < bearSizes.length; i++) {
+            bears.add(new Bear(bearSizes[i]));
+            beds.add(new Bed(bedSizes[i]));
+        }
+        BnBSolver solver = new BnBSolver(bears, beds);
+        assertTrue(perfectMatch(solver.solvedBears(), solver.solvedBeds()));
+    }
+
+    @Test
+    public void findTest2() {
+        int[] bearSizes = {5};
+        int[] bedSizes = {5};
+        ArrayList<Bear> bears = new ArrayList<>();
+        ArrayList<Bed> beds = new ArrayList<>();
+        for (int i = 0; i < bearSizes.length; i++) {
+            bears.add(new Bear(bearSizes[i]));
+            beds.add(new Bed(bedSizes[i]));
+        }
+        BnBSolver solver = new BnBSolver(bears, beds);
+        assertTrue(perfectMatch(solver.solvedBears(), solver.solvedBeds()));
+    }
+
+    @Test
+    public void findTest3() {
+        int[] bearSizes = {9};
+        int[] bedSizes = {9};
+        ArrayList<Bear> bears = new ArrayList<>();
+        ArrayList<Bed> beds = new ArrayList<>();
+        for (int i = 0; i < bearSizes.length; i++) {
+            bears.add(new Bear(bearSizes[i]));
+            beds.add(new Bed(bedSizes[i]));
+        }
+        BnBSolver solver = new BnBSolver(bears, beds);
+        assertTrue(perfectMatch(solver.solvedBears(), solver.solvedBeds()));
+    }
+
+
+    @Test
     public void simpleTest() {
         int[] bearSizes = {10, 50, 40, 30, 90, 20, 80, 70};
         int[] bedSizes = {70, 90, 20, 40, 50, 10, 30, 80};
